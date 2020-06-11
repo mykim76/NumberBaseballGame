@@ -47,6 +47,12 @@ class MainActivity : BaseActivity() {
                 return@setOnClickListener //리턴타입이 없는 함수에서는 함수를 강제 종료시키는 키워드를 사용
             }
 
+            //0이 포함되어 있는지 체크
+            if(inputNumStr.contains("0"))
+            {
+                Toast.makeText(mContext,"0은 문제에 포함되지 않습니다.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             //사용자 입력한 숫자를 채팅 메세지로 변환
             val userChag = Chat("USER", inputNumStr)
