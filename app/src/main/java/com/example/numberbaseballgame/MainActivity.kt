@@ -39,6 +39,15 @@ class MainActivity : BaseActivity() {
             //사용자가 입력한 값을 String으로 저장
             val inputNumStr = inputNumberEdt.text.toString()
 
+            //입력값의 타당성 체크
+            if(inputNumStr.length != 3)
+            {
+                Toast.makeText(mContext,"숫자는 세 자리여야 합니다", Toast.LENGTH_SHORT).show()
+                inputNumberEdt.setText("")
+                return@setOnClickListener //리턴타입이 없는 함수에서는 함수를 강제 종료시키는 키워드를 사용
+            }
+
+
             //사용자 입력한 숫자를 채팅 메세지로 변환
             val userChag = Chat("USER", inputNumStr)
 
@@ -160,6 +169,8 @@ class MainActivity : BaseActivity() {
         mChatAdapter.notifyDataSetChanged()
 
         //disable
+        inputNumberEdt.isEnabled=false
+        btnOK.isEnabled=false
 
 
         // to show message for ending
