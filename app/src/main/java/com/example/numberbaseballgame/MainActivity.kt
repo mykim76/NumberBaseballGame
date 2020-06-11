@@ -32,6 +32,23 @@ class MainActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+        btnOK.setOnClickListener { 
+            //사용자가 입력한 값을 String으로 저장
+            val inputNumStr = inputNumberEdt.text.toString()
+
+            //사용자 입력한 숫자를 채팅 메세지로 변환
+            val userChag = Chat("USER", inputNumStr)
+
+            //채팅 메세지를 채팅 내역 배열에 추가
+            chatMessageList.add(userChag)
+
+            //ListView 내용이 바뀌면 새로고침
+            mChatAdapter.notifyDataSetChanged()
+            //입력하고 나면 editText 내용을 빈간
+            inputNumberEdt.setText("")//EditText 는 text=String이 잘 먹지 않음
+
+            
+        }
     }
     
     fun makeComputerNumber()
