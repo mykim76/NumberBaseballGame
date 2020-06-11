@@ -47,6 +47,8 @@ class MainActivity : BaseActivity() {
             //입력하고 나면 editText 내용을 빈간
             inputNumberEdt.setText("")//EditText 는 text=String이 잘 먹지 않음
 
+            //입력값 판단할 함수 호출
+            checkStrikeAndBall(inputNumStr.toInt())
             
         }
     }
@@ -99,5 +101,18 @@ class MainActivity : BaseActivity() {
         chatMessageList.add(Chat("CPU","숫자 야구 게임에 오신 것을 환영합니다."))
         chatMessageList.add(Chat("CPU","제가 생각하는 세자리 숫자를 맞춰주세요"))
         chatMessageList.add(Chat("CPU","1~9의 숫자로만 구성되고, 중복된 숫자는 없습니다."))
+    }
+
+    //입력 값을 계산해서 리스트뷰에 답장 띄우기
+    fun checkStrikeAndBall(inputNum:Int){
+
+        //inputNum에는 세 자리 숫자가 들어온다고 전제
+        //3자리 숫자를 3칸의 배열로 분리
+        val inputNumArry = ArrayList<Int>()
+        //100,10,1 자리
+        inputNumArry.add(inputNum/100)
+        inputNumArry.add((inputNum/10)%10)
+        inputNumArry.add(inputNum%10)
+
     }
 }
