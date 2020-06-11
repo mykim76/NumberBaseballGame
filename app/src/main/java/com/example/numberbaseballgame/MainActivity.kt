@@ -11,6 +11,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
+    //시도한 숫자를 저장하는 배열 => 중복 입력 체크
+    val stryNumberStrArr = ArrayList<String>()
     // how many times?
     var inputCount = 0
     //컴퓨터가 낸 문제 숫자 세 개를 저장할 ArrayList
@@ -57,14 +59,31 @@ class MainActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
+            //이미 시도한 숫자 체크
+            for(triedStr in stryNumberStrArr)
+            {
+                if(triedStr==inputNumStr)
+                {
+                    Toast.makeText(mContext,"${inputNumStr} : 이미 시도한 수입니다.", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+
+                }
+            }
+
+            stryNumberStrArr.add(inputNumStr)
+
             //사용자 입력한 숫자를 채팅 메세지로 변환
             val userChag = Chat("USER", inputNumStr)
 
-            //채팅 메세지를 채팅 내역 배열에 추가
-            chatMessageList.add(userChag)
 
-            //ListView 내용이 바뀌면 새로고침
-            mChatAdapter.notifyDataSetChanged()
+
+            Handler().postDelayed({
+                //채팅 메세지를 채팅 내역 배열에 추가
+                chatMessageList.add(userChag)
+
+                //ListView 내용이 바뀌면 새로고침
+                mChatAdapter.notifyDataSetChanged()
+            }, 300)
 
 
             //답장 후 바닥(리스트 목록 가장 마지막)으로 리스트를 끌어내리자
