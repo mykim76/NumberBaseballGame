@@ -36,7 +36,7 @@ class MainActivity : BaseActivity() {
 
                 // TODO : 1~9 숫자 랜덤으로 뽑기
                 val randomNum = (Math.random() * 9 +1).toInt() // 0<= Math.random() <9 => Math.random()*9+1, toInt():버림
-                Log.d("랜덤값", randomNum.toString())
+                //Log.d("랜덤값", randomNum.toString())
                 
                 //숫자가 유효한지 저장할 변수
                 var isNumberOK = true
@@ -61,7 +61,12 @@ class MainActivity : BaseActivity() {
                 }
 
             }
+        }
 
+        //문제가 뭔지 확인하기
+        for(num in computerNumbers)
+        {
+            Log.d("최종번호", num.toString())
         }
     }
 }
