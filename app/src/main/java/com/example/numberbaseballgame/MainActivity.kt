@@ -10,6 +10,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
+    // how many times?
+    var inputCount = 0
     //컴퓨터가 낸 문제 숫자 세 개를 저장할 ArrayList
     val computerNumbers = ArrayList<Int>()
 
@@ -107,6 +109,7 @@ class MainActivity : BaseActivity() {
     //입력 값을 계산해서 리스트뷰에 답장 띄우기
     fun checkStrikeAndBall(inputNum:Int){
 
+        inputCount ++
         //inputNum에는 세 자리 숫자가 들어온다고 전제
         //3자리 숫자를 3칸의 배열로 분리
         val inputNumArry = ArrayList<Int>()
@@ -151,6 +154,10 @@ class MainActivity : BaseActivity() {
         chatMessageList.add(congratulation)
         mChatAdapter.notifyDataSetChanged()
         // how many times?
+
+        val countChat = Chat("CPU", "${inputCount} 번만에 맞추었습니다.")
+        chatMessageList.add(countChat)
+        mChatAdapter.notifyDataSetChanged()
 
         //disable
 
