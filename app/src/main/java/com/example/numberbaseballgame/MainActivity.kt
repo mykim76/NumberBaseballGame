@@ -2,6 +2,7 @@ package com.example.numberbaseballgame
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.Toast
 import com.example.numberbaseballgame.adapters.ChatAdapter
@@ -26,11 +27,13 @@ class MainActivity : BaseActivity() {
         setupEvents()
     }
     override fun setValues() {
-//문제를 내라고 컴퓨터에게 시킴 =>문제:3자리 숫자 배열
-        makeComputerNumber()
 
         mChatAdapter = ChatAdapter(mContext,R.layout.chat_list_item, chatMessageList)
         chatListView.adapter = mChatAdapter
+
+
+        //문제를 내라고 컴퓨터에게 시킴 =>문제:3자리 숫자 배열
+        makeComputerNumber()
     }
 
     override fun setupEvents() {
@@ -62,6 +65,13 @@ class MainActivity : BaseActivity() {
 
             //ListView 내용이 바뀌면 새로고침
             mChatAdapter.notifyDataSetChanged()
+
+
+            //답장 후 바닥(리스트 목록 가장 마지막)으로 리스트를 끌어내리자
+            chatListView.smoothScrollToPosition(chatMessageList.size-1)
+
+
+
             //입력하고 나면 editText 내용을 빈간
             inputNumberEdt.setText("")//EditText 는 text=String이 잘 먹지 않음
 
@@ -117,8 +127,17 @@ class MainActivity : BaseActivity() {
         
         //문제를 다 내고, 안내 메세지를 채팅으로 출력
         chatMessageList.add(Chat("CPU","숫자 야구 게임에 오신 것을 환영합니다."))
-        chatMessageList.add(Chat("CPU","제가 생각하는 세자리 숫자를 맞춰주세요"))
-        chatMessageList.add(Chat("CPU","1~9의 숫자로만 구성되고, 중복된 숫자는 없습니다."))
+        mChatAdapter.notifyDataSetChanged()
+        Handler().postDelayed({
+            chatMessageList.add(Chat("CPU","제가 생각하는 세자리 숫자를 맞춰주세요"))
+            mChatAdapter.notifyDataSetChanged()
+        }, 1000)
+
+        Handler().postDelayed({
+            chatMessageList.add(Chat("CPU","1~9의 숫자로만 구성되고, 중복된 숫자는 없습니다."))
+            mChatAdapter.notifyDataSetChanged()
+        }, 2000)
+
     }
 
     //입력 값을 계산해서 리스트뷰에 답장 띄우기
@@ -153,14 +172,24 @@ class MainActivity : BaseActivity() {
 
         //결과를 채팅메세지로 가공해서 컴퓨터가 답장한 내용으로 추가
         val answer = Chat("CPU","${strikeCount}S ${ballCount}B")
-        chatMessageList.add(answer)
-        mChatAdapter.notifyDataSetChanged()
+        //답장하기 전 시간적 여백 추가
+        val myHandler = Handler()
+        myHandler.postDelayed({
+
+            chatMessageList.add(answer)
+            mChatAdapter.notifyDataSetChanged()
+
+        }, 1000)
 
         //답장 후 바닥(리스트 목록 가장 마지막)으로 리스트를 끌어내리자
         chatListView.smoothScrollToPosition(chatMessageList.size-1)
 
         if(strikeCount==3){
-            finishGame()
+
+            Handler().postDelayed({
+                finishGame()
+            }, 1000)
+
         }
 
     }
