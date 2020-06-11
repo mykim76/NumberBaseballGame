@@ -2,6 +2,7 @@ package com.example.numberbaseballgame
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 
 class MainActivity : BaseActivity() {
 
@@ -33,7 +34,8 @@ class MainActivity : BaseActivity() {
             while(true) {
 
                 // TODO : 1~9 숫자 랜덤으로 뽑기
-                
+                val randomNum = (Math.random() * 9 +1).toInt() // 0<= Math.random() <9 => Math.random()*9+1, toInt():버림
+                Log.d("랜덤값", randomNum.toString())
                 
                 //숫자가 유효한지 저장할 변수
                 var isNumberOK = true
