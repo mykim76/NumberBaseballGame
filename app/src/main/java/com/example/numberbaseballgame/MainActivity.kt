@@ -3,6 +3,7 @@ package com.example.numberbaseballgame
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.example.numberbaseballgame.adapters.ChatAdapter
 import com.example.numberbaseballgame.datas.Chat
 import kotlinx.android.synthetic.main.activity_main.*
@@ -113,6 +114,49 @@ class MainActivity : BaseActivity() {
         inputNumArry.add(inputNum/100)
         inputNumArry.add((inputNum/10)%10)
         inputNumArry.add(inputNum%10)
+
+        var ballCount = 0
+        var strikeCount = 0
+        for(i in inputNumArry.indices)
+        {
+            for(j in computerNumbers.indices){
+                if(inputNumArry[i]==computerNumbers[j])
+                {
+                    if(i==j)
+                    {
+                        strikeCount++
+                    }
+                    else{
+                        ballCount++
+                    }
+                }
+            }
+        }
+
+        //결과를 채팅메세지로 가공해서 컴퓨터가 답장한 내용으로 추가
+        val answer = Chat("CPU","${strikeCount}S ${ballCount}B")
+        chatMessageList.add(answer)
+        mChatAdapter.notifyDataSetChanged()
+
+        if(strikeCount==3){
+            finishGame()
+        }
+
+    }
+
+    fun finishGame()
+    {
+
+        val congratulation = Chat("CPU", "축하합니다. 정답을 맞췄습니다.")
+        chatMessageList.add(congratulation)
+        mChatAdapter.notifyDataSetChanged()
+        // how many times?
+
+        //disable
+
+
+        // to show message for ending
+        Toast.makeText(mContext,"이용해 주셔서 감사합니다.", Toast.LENGTH_LONG).show()
 
     }
 }
