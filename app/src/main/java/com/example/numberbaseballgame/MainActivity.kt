@@ -156,6 +156,9 @@ class MainActivity : BaseActivity() {
         chatMessageList.add(answer)
         mChatAdapter.notifyDataSetChanged()
 
+        //답장 후 바닥(리스트 목록 가장 마지막)으로 리스트를 끌어내리자
+        chatListView.smoothScrollToPosition(chatMessageList.size-1)
+
         if(strikeCount==3){
             finishGame()
         }
