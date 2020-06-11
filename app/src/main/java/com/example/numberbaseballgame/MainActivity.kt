@@ -30,6 +30,7 @@ class MainActivity : BaseActivity() {
         //숫자 세 개를 랜덤 생성=>3번 반복
         for(i in 0..2)
         {
+
             //규칙에 맞는 숫자를 뽑을때 까지 무한 반복
             while(true) {
 
@@ -42,15 +43,24 @@ class MainActivity : BaseActivity() {
 
 
                 // TODO : 숫자를 써도 되는지 검사
+                //중복체크 => 중복된 숫자는 무효
+                for(tmp in computerNumbers)
+                {
+                    if(randomNum==tmp){
+                        isNumberOK = false
+                        break
+                    }
+                }
+
                 
                 //조건에 맞는 숫자가 찾아지면 무한반복 맘춤
                 if(isNumberOK)
                 {
                     break
                 }
-
+                computerNumbers.add(randomNum)
             }
-            computerNumbers.add()
+
         }
     }
 }
