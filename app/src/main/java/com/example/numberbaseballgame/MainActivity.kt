@@ -3,7 +3,9 @@ package com.example.numberbaseballgame
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.numberbaseballgame.adapters.ChatAdapter
 import com.example.numberbaseballgame.datas.Chat
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
@@ -11,6 +13,7 @@ class MainActivity : BaseActivity() {
     val computerNumbers = ArrayList<Int>()
 
     val chatMessageList = ArrayList<Chat>()
+    lateinit var mChatAdapter:ChatAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +25,9 @@ class MainActivity : BaseActivity() {
     override fun setValues() {
 //문제를 내라고 컴퓨터에게 시킴 =>문제:3자리 숫자 배열
         makeComputerNumber()
+
+        mChatAdapter = ChatAdapter(mContext,R.layout.chat_list_item, chatMessageList)
+        chatListView.adapter = mChatAdapter
     }
 
     override fun setupEvents() {
