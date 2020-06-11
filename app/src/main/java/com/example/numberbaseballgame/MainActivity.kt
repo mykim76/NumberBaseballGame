@@ -56,9 +56,10 @@ class MainActivity : BaseActivity() {
                 //조건에 맞는 숫자가 찾아지면 무한반복 맘춤
                 if(isNumberOK)
                 {
+                    computerNumbers.add(randomNum)
                     break
                 }
-                computerNumbers.add(randomNum)
+
             }
 
         }
