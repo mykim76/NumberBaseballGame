@@ -3,11 +3,14 @@ package com.example.numberbaseballgame
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.numberbaseballgame.datas.Chat
 
 class MainActivity : BaseActivity() {
 
     //컴퓨터가 낸 문제 숫자 세 개를 저장할 ArrayList
     val computerNumbers = ArrayList<Int>()
+
+    val chatMessageList = ArrayList<Chat>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,5 +71,10 @@ class MainActivity : BaseActivity() {
         {
             Log.d("최종번호", num.toString())
         }
+        
+        //문제를 다 내고, 안내 메세지를 채팅으로 출력
+        chatMessageList.add(Chat("CPU","숫자 야구 게임에 오신 것을 환영합니다."))
+        chatMessageList.add(Chat("CPU","제가 생각하는 세자리 숫자를 맞춰주세요"))
+        chatMessageList.add(Chat("CPU","1~9의 숫자로만 구성되고, 중복된 숫자는 없습니다."))
     }
 }
